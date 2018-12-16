@@ -43,6 +43,7 @@ jobs:
       testRunTitle: 'Python $(python.version)'
     condition: succeededOrFailed()
 
+<<<<<<< HEAD
 - job: 'Publish'
   dependsOn: 'Test'
   pool:
@@ -56,3 +57,5 @@ jobs:
 
   - script: python setup.py sdist
     displayName: 'Build sdist'
+=======
+>>>>>>> cce3bd3cab97ee5c02f621fdaf40ea233454737e
