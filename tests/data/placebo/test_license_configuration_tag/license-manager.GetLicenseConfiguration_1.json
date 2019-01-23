@@ -1,0 +1,57 @@
+{
+    "status_code": 200,
+    "data": {
+        "LicenseConfigurationId": "lic-4ab43b7ba22011594969a71b6a6dfd29",
+        "LicenseConfigurationArn": "arn:aws:license-manager:us-east-1:644160558196:license-configuration:lic-4ab43b7ba22011594969a71b6a6dfd29",
+        "Name": "DataSync",
+        "Description": "license for testing",
+        "LicenseCountingType": "vCPU",
+        "LicenseRules": [],
+        "LicenseCount": 50,
+        "LicenseCountHardLimit": false,
+        "ConsumedLicenses": 0,
+        "Status": "AVAILABLE",
+        "OwnerAccountId": "644160558196",
+        "ConsumedLicenseSummaryList": [
+            {
+                "ResourceType": "EC2_INSTANCE",
+                "ConsumedLicenses": 0
+            },
+            {
+                "ResourceType": "EC2_HOST",
+                "ConsumedLicenses": 0
+            }
+        ],
+        "ManagedResourceSummaryList": [
+            {
+                "ResourceType": "EC2_INSTANCE",
+                "AssociationCount": 0
+            },
+            {
+                "ResourceType": "EC2_HOST",
+                "AssociationCount": 0
+            },
+            {
+                "ResourceType": "EC2_AMI",
+                "AssociationCount": 0
+            }
+        ],
+        "Tags": [
+            {
+                "Key": "DeleteMe",
+                "Value": "DeleteMe"
+            }
+        ],
+        "ResponseMetadata": {
+            "RequestId": "fb9bcfb6-0029-429b-bd65-6ac8e6c12ee1",
+            "HTTPStatusCode": 200,
+            "HTTPHeaders": {
+                "x-amzn-requestid": "fb9bcfb6-0029-429b-bd65-6ac8e6c12ee1",
+                "content-type": "application/x-amz-json-1.1",
+                "content-length": "783",
+                "date": "Tue, 22 Jan 2019 19:10:36 GMT"
+            },
+            "RetryAttempts": 0
+        }
+    }
+}

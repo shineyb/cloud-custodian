@@ -73,6 +73,7 @@ def load_resources():
     import c7n.resources.kms
     import c7n.resources.ml
     import c7n.resources.mq
+    import c7n.resources.licensemanager
     import c7n.resources.opsworks
     import c7n.resources.rds
     import c7n.resources.rdsparamgroup

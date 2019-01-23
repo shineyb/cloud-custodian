@@ -1,0 +1,22 @@
+{
+    "status_code": 200,
+    "data": {
+        "Tags": [
+            {
+                "Key": "DeleteMe",
+                "Value": "DeleteMe"
+            }
+        ],
+        "ResponseMetadata": {
+            "RequestId": "7ac8395b-c840-4d7f-97ff-e3bee4e1778f",
+            "HTTPStatusCode": 200,
+            "HTTPHeaders": {
+                "x-amzn-requestid": "7ac8395b-c840-4d7f-97ff-e3bee4e1778f",
+                "content-type": "application/x-amz-json-1.1",
+                "content-length": "48",
+                "date": "Tue, 22 Jan 2019 19:10:37 GMT"
+            },
+            "RetryAttempts": 0
+        }
+    }
+}

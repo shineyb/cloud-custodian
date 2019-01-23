@@ -1,0 +1,57 @@
+{
+    "status_code": 200,
+    "data": {
+        "LicenseConfigurationId": "lic-4ab43b7ba22011594969a71b6a6dfd29",
+        "LicenseConfigurationArn": "arn:aws:license-manager:us-east-1:644160558196:license-configuration:lic-4ab43b7ba22011594969a71b6a6dfd29",
+        "Name": "Database License",
+        "Description": "testing",
+        "LicenseCountingType": "vCPU",
+        "LicenseRules": [],
+        "LicenseCount": 500,
+        "LicenseCountHardLimit": false,
+        "ConsumedLicenses": 0,
+        "Status": "AVAILABLE",
+        "OwnerAccountId": "644160558196",
+        "ConsumedLicenseSummaryList": [
+            {
+                "ResourceType": "EC2_INSTANCE",
+                "ConsumedLicenses": 0
+            },
+            {
+                "ResourceType": "EC2_HOST",
+                "ConsumedLicenses": 0
+            }
+        ],
+        "ManagedResourceSummaryList": [
+            {
+                "ResourceType": "EC2_INSTANCE",
+                "AssociationCount": 0
+            },
+            {
+                "ResourceType": "EC2_HOST",
+                "AssociationCount": 0
+            },
+            {
+                "ResourceType": "EC2_AMI",
+                "AssociationCount": 0
+            }
+        ],
+        "Tags": [
+            {
+                "Key": "DeleteMe",
+                "Value": "DeleteMe"
+            }
+        ],
+        "ResponseMetadata": {
+            "RequestId": "d1ffe558-cd22-444d-a125-e3ca1202b7d7",
+            "HTTPStatusCode": 200,
+            "HTTPHeaders": {
+                "x-amzn-requestid": "d1ffe558-cd22-444d-a125-e3ca1202b7d7",
+                "content-type": "application/x-amz-json-1.1",
+                "content-length": "780",
+                "date": "Tue, 22 Jan 2019 19:16:17 GMT"
+            },
+            "RetryAttempts": 0
+        }
+    }
+}

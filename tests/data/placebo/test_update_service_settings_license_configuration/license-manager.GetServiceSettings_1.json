@@ -1,0 +1,21 @@
+{
+    "status_code": 200,
+    "data": {
+        "SnsTopicArn": "arn:aws:sns:us-east-1:471176887411:aws-license-manager-service-test2",
+        "OrganizationConfiguration": {
+            "EnableIntegration": false
+        },
+        "EnableCrossAccountsDiscovery": false,
+        "ResponseMetadata": {
+            "RequestId": "bd047986-c638-46b4-bd86-e6542d7f27b6",
+            "HTTPStatusCode": 200,
+            "HTTPHeaders": {
+                "x-amzn-requestid": "bd047986-c638-46b4-bd86-e6542d7f27b6",
+                "content-type": "application/x-amz-json-1.1",
+                "content-length": "179",
+                "date": "Thu, 17 Jan 2019 18:54:14 GMT"
+            },
+            "RetryAttempts": 0
+        }
+    }
+}
