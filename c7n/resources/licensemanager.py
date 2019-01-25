@@ -1,4 +1,4 @@
-# Copyright 2018 Capital One Services, LLC
+# Copyright 2019 Capital One Services, LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ class LicenseConfiguration(QueryResourceManager):
 
     def augment(self, resources):
         client = local_session(self.session_factory).client('license-manager')
-
+        from nose.tools import set_trace; set_trace()
         def _augment(r):
             # List tags for the license_configuration & set as attribute
             tags = self.retry(client.list_tags_for_resource,
@@ -57,28 +57,8 @@ class LicenseConfiguration(QueryResourceManager):
             return list(filter(None, w.map(_augment, resources)))
 
 
-class StateTransitionFilter(object):
-    """Filter instances by state.
-
-    Try to simplify construction for policy authors by automatically
-    filtering elements (filters or actions) to the instances states
-    they are valid for.
-
-    """
-    valid_origin_states = ()
-
-    def filter_instance_state(self, instances, states=None):
-        states = states or self.valid_origin_states
-        orig_length = len(instances)
-        results = [i for i in instances
-                   if i['LicenseDeletionStatus'] in states]
-        self.log.info("state filter %s %d of %d license deletion" % (
-            self.__class__.__name__, len(results), orig_length))
-        return results
-
-
 @LicenseConfiguration.action_registry.register('delete')
-class DeleteLicenseConfiguration(BaseAction, StateTransitionFilter):
+class DeleteLicenseConfiguration(BaseAction):
     """Deletes LicenseConfiguration(s)
 
     :example:
@@ -148,8 +128,7 @@ class UpdateServiceSettings(BaseAction):
                     update:
                       - property: 'SnsTopicArn'
                         value: 'arn:aws:sns:us-east-1:471176887411:
-                                aws-license-manager-service-test-license-sns'
-                    immediate: true
+                                aws-license-manager-service-test-license-sns
     """
 
     schema = type_schema(
@@ -214,9 +193,7 @@ class RemoveTag(RemoveTag):
 @LicenseConfiguration.action_registry.register('update-license-configuration')
 class UpdateLicenseConfiguration(BaseAction):
 
-    """Modifies an RDS instance based on specified parameter
-    using ModifyDbInstance.
-
+    """Updates license-manager based on specified parameter
     'Update' is an array with with key value pairs that should be set to
     the property and value you wish to modify.
 

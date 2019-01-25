@@ -3,13 +3,13 @@
     "data": {
         "LicenseConfigurations": [
             {
-                "LicenseConfigurationId": "lic-4ab43b7ba22011594969a71b6a6dfd29",
-                "LicenseConfigurationArn": "arn:aws:license-manager:us-east-1:644160558196:license-configuration:lic-4ab43b7ba22011594969a71b6a6dfd29",
-                "Name": "DataSync",
-                "Description": "license for testing",
+                "LicenseConfigurationId": "lic-4ab43e381ae79e9aeef486d0e81767ea",
+                "LicenseConfigurationArn": "arn:aws:license-manager:us-east-1:644160558196:license-configuration:lic-4ab43e381ae79e9aeef486d0e81767ea",
+                "Name": "DataIntegrationLicense",
+                "Description": "testing",
                 "LicenseCountingType": "vCPU",
                 "LicenseRules": [],
-                "LicenseCount": 50,
+                "LicenseCount": 200,
                 "LicenseCountHardLimit": false,
                 "ConsumedLicenses": 0,
                 "Status": "AVAILABLE",
@@ -41,13 +41,13 @@
             }
         ],
         "ResponseMetadata": {
-            "RequestId": "0f3570f1-ea53-46bf-82aa-016ee77894b4",
+            "RequestId": "27886d4e-1036-4ea8-9154-0a04ba264737",
             "HTTPStatusCode": 200,
             "HTTPHeaders": {
-                "x-amzn-requestid": "0f3570f1-ea53-46bf-82aa-016ee77894b4",
+                "x-amzn-requestid": "27886d4e-1036-4ea8-9154-0a04ba264737",
                 "content-type": "application/x-amz-json-1.1",
-                "content-length": "764",
-                "date": "Tue, 22 Jan 2019 19:10:36 GMT"
+                "content-length": "767",
+                "date": "Wed, 23 Jan 2019 20:45:17 GMT"
             },
             "RetryAttempts": 0
         }
