@@ -18,6 +18,7 @@ from c7n.actions import ActionRegistry, BaseAction
 from c7n.filters import FilterRegistry
 from c7n.tags import Tag, TagDelayedAction, RemoveTag, coalesce_copy_user_tags
 from c7n.utils import local_session, type_schema
+from c7n.filters.kms import KmsRelatedFilter
 
 
 @resources.register('fsx')
@@ -320,3 +321,24 @@ class DeleteFileSystem(BaseAction):
                 )
             except client.exceptions.BadRequest as e:
                 self.log.warning('Unable to delete: %s - %s' % (r['FileSystemId'], e))
+
+@FSx.filter_registry.register('kms-key')
+class KmsFilter(KmsRelatedFilter):
+    """
+    Filter a resource by its associcated kms key and optionally the aliasname
+    of the kms key by using 'c7n:AliasName'
+
+    :example:
+
+        .. code-block:: yaml
+
+            policies:
+                - name: fsx-kms-key-filters
+                  resource: 
+                  filters:
+                    - type: fsx
+                      key: c7n:AliasName
+                      value: "^(alias/aws/fsx)"
+                      op: regex
+    """
+    RelatedIdsExpression = 'KmsKeyId'
