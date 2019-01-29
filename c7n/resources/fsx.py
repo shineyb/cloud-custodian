@@ -322,6 +322,7 @@ class DeleteFileSystem(BaseAction):
             except client.exceptions.BadRequest as e:
                 self.log.warning('Unable to delete: %s - %s' % (r['FileSystemId'], e))
 
+
 @FSx.filter_registry.register('kms-key')
 class KmsFilter(KmsRelatedFilter):
     """
@@ -334,7 +335,7 @@ class KmsFilter(KmsRelatedFilter):
 
             policies:
                 - name: fsx-kms-key-filters
-                  resource: 
+                  resource: fsx
                   filters:
                     - type: fsx
                       key: c7n:AliasName
