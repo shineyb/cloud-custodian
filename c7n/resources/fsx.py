@@ -359,7 +359,7 @@ class KmsFilterFsxBackup(KmsRelatedFilter):
                 - name: fsx-backup-kms-key-filters
                   resource: fsx-backup
                   filters:
-                    - type: fsx-backup
+                    - type: kms-key
                       key: c7n:AliasName
                       value: "^(alias/aws/fsx)"
                       op: regex
