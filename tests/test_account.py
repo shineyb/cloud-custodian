@@ -894,7 +894,7 @@ class AccountDataEvents(BaseTest):
         self.assertEqual(len(resources), 1)
 
     def test_set_glue_encryption(self):
-        session_factory = self.record_flight_data("test_set_glue_encryption")
+        session_factory = self.replay_flight_data("test_set_glue_encryption")
         p = self.load_policy(
             {
                 "name": "set-datacatalog-encryption",
