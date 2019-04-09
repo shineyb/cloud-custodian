@@ -1,0 +1,20 @@
+{
+    "status_code": 200,
+    "data": {
+        "AccountAliases": [
+            "cof-sandbox-1"
+        ],
+        "IsTruncated": false,
+        "ResponseMetadata": {
+            "RequestId": "39bf6539-5af6-11e9-aa6c-9dbebe7fd8dd",
+            "HTTPStatusCode": 200,
+            "HTTPHeaders": {
+                "x-amzn-requestid": "39bf6539-5af6-11e9-aa6c-9dbebe7fd8dd",
+                "content-type": "text/xml",
+                "content-length": "392",
+                "date": "Tue, 09 Apr 2019 18:35:18 GMT"
+            },
+            "RetryAttempts": 0
+        }
+    }
+}

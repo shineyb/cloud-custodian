@@ -892,3 +892,32 @@ class AccountDataEvents(BaseTest):
         )
         resources = p.run()
         self.assertEqual(len(resources), 1)
+
+    def test_set_glue_encryption(self):
+        session_factory = self.record_flight_data("test_set_glue_encryption")
+        p = self.load_policy(
+            {
+                "name": "set-datacatalog-encryption",
+                "resource": "aws.account",
+                "actions": [
+                    {
+                        "type": "set-glue-encryption",
+                        "DataCatalogEncryptionSettings" :{
+                            "ConnectionPasswordEncryption" :{
+                                "ReturnConnectionPasswordEncrypted": True,
+                                "AwsKmsKeyId": "alias/cof/glue/encrypted"
+                            },
+                            "EncryptionAtRest" :{
+                                "CatalogEncryptionMode": "SSE-KMS",
+                                "SseAwsKmsKeyId": "alias/cof/glue/encrypted"
+                            }
+                        }
+                    
+                    }
+                ]
+            },
+            session_factory=session_factory,
+        )
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+
