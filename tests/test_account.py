@@ -902,17 +902,16 @@ class AccountDataEvents(BaseTest):
                 "actions": [
                     {
                         "type": "set-glue-encryption",
-                        "DataCatalogEncryptionSettings" :{
-                            "ConnectionPasswordEncryption" :{
+                        "DataCatalogEncryptionSettings": {
+                            "ConnectionPasswordEncryption": {
                                 "ReturnConnectionPasswordEncrypted": True,
                                 "AwsKmsKeyId": "alias/cof/glue/encrypted"
                             },
-                            "EncryptionAtRest" :{
+                            "EncryptionAtRest": {
                                 "CatalogEncryptionMode": "SSE-KMS",
                                 "SseAwsKmsKeyId": "alias/cof/glue/encrypted"
                             }
                         }
-                    
                     }
                 ]
             },
@@ -920,7 +919,3 @@ class AccountDataEvents(BaseTest):
         )
         resources = p.run()
         self.assertEqual(len(resources), 1)
-
-
-
- 
