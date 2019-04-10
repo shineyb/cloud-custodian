@@ -96,7 +96,7 @@ class AccountTests(BaseTest):
         self.assertTrue('c7n:guard-duty' in resources[0])
 
     def test_root_mfa_enabled(self):
-        session_factory = self.record_flight_data("test_account_root_mfa")
+        session_factory = self.replay_flight_data("test_account_root_mfa")
         p = self.load_policy(
             {
                 "name": "root-mfa",
@@ -894,7 +894,7 @@ class AccountDataEvents(BaseTest):
         self.assertEqual(len(resources), 1)
 
     def test_set_glue_encryption(self):
-        session_factory = self.replay_flight_data("test_set_glue_encryption")
+        session_factory = self.record_flight_data("test_set_glue_encryption")
         p = self.load_policy(
             {
                 "name": "set-datacatalog-encryption",
@@ -902,16 +902,17 @@ class AccountDataEvents(BaseTest):
                 "actions": [
                     {
                         "type": "set-glue-encryption",
-                        "DataCatalogEncryptionSettings": {
-                            "ConnectionPasswordEncryption": {
+                        "DataCatalogEncryptionSettings" :{
+                            "ConnectionPasswordEncryption" :{
                                 "ReturnConnectionPasswordEncrypted": True,
                                 "AwsKmsKeyId": "alias/skunk/glue/encrypted"
                             },
-                            "EncryptionAtRest": {
+                            "EncryptionAtRest" :{
                                 "CatalogEncryptionMode": "SSE-KMS",
                                 "SseAwsKmsKeyId": "alias/skunk/glue/encrypted"
                             }
                         }
+                    
                     }
                 ]
             },
@@ -919,3 +920,4 @@ class AccountDataEvents(BaseTest):
         )
         resources = p.run()
         self.assertEqual(len(resources), 1)
+
