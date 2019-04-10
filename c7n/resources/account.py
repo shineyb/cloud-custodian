@@ -1255,10 +1255,13 @@ class SetGlueEncryption(BaseAction):
                 resource: aws.account
                 actions:
                   - type: set-glue-encryption
-                    DataCatalogEncryptionSettings
-                      EncryptionAtRest:
-                        CatalogEncryptionMode: SSE-KMS
-                        SseAwsKmsKeyId: alias/skunk/glue/encrypted
+                    DataCatalogEncryptionSettings:
+                        ConnectionPasswordEncryption:
+                            ReturnConnectionPasswordEncrypted: True
+                            AwsKmsKeyId: alias/skunk/glue/encrypted
+                        EncryptionAtRest:
+                            CatalogEncryptionMode: SSE-KMS
+                            SseAwsKmsKeyId: alias/skunk/glue/encrypted
     """
     permissions = ('glue:PutDataCatalogEncryptionSettings',)
 
