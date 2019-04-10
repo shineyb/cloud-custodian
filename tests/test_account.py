@@ -96,7 +96,7 @@ class AccountTests(BaseTest):
         self.assertTrue('c7n:guard-duty' in resources[0])
 
     def test_root_mfa_enabled(self):
-        session_factory = self.replay_flight_data("test_account_root_mfa")
+        session_factory = self.record_flight_data("test_account_root_mfa")
         p = self.load_policy(
             {
                 "name": "root-mfa",
@@ -905,11 +905,11 @@ class AccountDataEvents(BaseTest):
                         "DataCatalogEncryptionSettings": {
                             "ConnectionPasswordEncryption": {
                                 "ReturnConnectionPasswordEncrypted": True,
-                                "AwsKmsKeyId": "alias/cof/glue/encrypted"
+                                "AwsKmsKeyId": "alias/skunk/glue/encrypted"
                             },
                             "EncryptionAtRest": {
                                 "CatalogEncryptionMode": "SSE-KMS",
-                                "SseAwsKmsKeyId": "alias/cof/glue/encrypted"
+                                "SseAwsKmsKeyId": "alias/skunk/glue/encrypted"
                             }
                         }
                     }

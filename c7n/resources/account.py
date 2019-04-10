@@ -1258,7 +1258,7 @@ class SetGlueEncryption(BaseAction):
                     DataCatalogEncryptionSettings
                       EncryptionAtRest:
                         CatalogEncryptionMode: SSE-KMS
-                        SseAwsKmsKeyId: arn:aws:kms:us-east-1:<acc_num>:key/<key_id>
+                        SseAwsKmsKeyId: alias/skunk/glue/encrypted
     """
     permissions = ('glue:PutDataCatalogEncryptionSettings',)
 

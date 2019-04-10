@@ -2,17 +2,17 @@
     "status_code": 200,
     "data": {
         "AccountAliases": [
-            "cof-sandbox-1"
+            "custodian-skunk-works"
         ],
         "IsTruncated": false,
         "ResponseMetadata": {
-            "RequestId": "39bf6539-5af6-11e9-aa6c-9dbebe7fd8dd",
+            "RequestId": "21d10d69-5ba9-11e9-8620-d5faa87200d3",
             "HTTPStatusCode": 200,
             "HTTPHeaders": {
-                "x-amzn-requestid": "39bf6539-5af6-11e9-aa6c-9dbebe7fd8dd",
+                "x-amzn-requestid": "21d10d69-5ba9-11e9-8620-d5faa87200d3",
                 "content-type": "text/xml",
-                "content-length": "392",
-                "date": "Tue, 09 Apr 2019 18:35:18 GMT"
+                "content-length": "400",
+                "date": "Wed, 10 Apr 2019 15:55:58 GMT"
             },
             "RetryAttempts": 0
         }
