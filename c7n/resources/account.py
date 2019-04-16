@@ -1309,13 +1309,16 @@ class SetGlueEncryption(BaseAction):
         c = local_session(self.manager.session_factory).client('glue')
         params = dict(self.data)
         params.pop('type')
-        dc_key = params.get('DataCatalogEncryptionSettings').get('EncryptionAtRest', {}).get('SseAwsKmsKeyId')
-        pw_key = params.get('DataCatalogEncryptionSettings').get('ConnectionPasswordEncryption', {}).get('AwsKmsKeyId')
+        dc_key = params.get('DataCatalogEncryptionSettings').get(
+            'EncryptionAtRest', {}).get('SseAwsKmsKeyId')
+        pw_key = params.get('DataCatalogEncryptionSettings').get(
+            'ConnectionPasswordEncryption', {}).get('AwsKmsKeyId')
         kmsclient = self.manager.session_factory().client('kms')
         if dc_key is not None and dc_key.startswith('alias'):
             dc_keyid = kmsclient.describe_key(KeyId=dc_key)['KeyMetadata']['Arn']
             params['DataCatalogEncryptionSettings']['EncryptionAtRest']['SseAwsKmsKeyId'] = dc_keyid
         if pw_key is not None and pw_key.startswith('alias'):
             pw_keyid = kmsclient.describe_key(KeyId=pw_key)['KeyMetadata']['Arn']
-            params['DataCatalogEncryptionSettings']['ConnectionPasswordEncryption']['AwsKmsKeyId'] = pw_keyid
+            params['DataCatalogEncryptionSettings']
+            ['ConnectionPasswordEncryption']['AwsKmsKeyId'] = pw_keyid
         c.put_data_catalog_encryption_settings(**params)
