@@ -1263,6 +1263,7 @@ class SetGlueEncryption(BaseAction):
                             CatalogEncryptionMode: SSE-KMS
                             SseAwsKmsKeyId: alias/skunk/glue/encrypted
     """
+    
     permissions = ('glue:PutDataCatalogEncryptionSettings',)
 
     schema = {
