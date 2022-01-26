@@ -3167,3 +3167,36 @@ class TestPrefixList(BaseTest):
         resources = p.run()
         assert 'c7n:matched-entries' in resources[0]
         assert 'c7n:prefix-entries' in resources[0]
+
+
+    def test_subnet_modify_attributes(self):
+        session_factory = self.record_flight_data(
+            "test_subnet_modify_attributes")
+        client = session_factory().client("ec2")
+        p = self.load_policy(
+            {
+                "name": "turn-on-public-ip-protection",
+                "resource": "aws.subnet",
+                "filters": [
+                    {
+                        "key": "map_public_ip_on_launch.value"
+                    },
+                ],
+                "actions": [
+                    {
+                        "type": "modify-subnet",
+                        "attributes": {
+                            "map_public_ip_on_launch.value": "false",
+                        },
+                    },
+                ],
+            },
+            session_factory=session_factory,
+        )
+        # resources = p.run()
+        # self.assertEqual(len(resources), 1)
+        # arn = resources[0]["LoadBalancerArn"]
+        # attrs = client.describe_load_balancer_attributes(
+        #     LoadBalancerArn=arn)["Attributes"]
+        # attrs = {obj['Key']: obj['Value'] for obj in attrs}
+        # assert attrs['deletion_protection.enabled'] == 'true'

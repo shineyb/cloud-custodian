@@ -2575,3 +2575,67 @@ class Entry(Filter):
                 results.append(r)
                 r[self.match_annotation_key] = matched
         return results
+
+@Vpc.action_registry.register('modify_subnet_attribute')
+class VpcSubnetModifyAtrributes(BaseAction):
+    """Modify subnet attributes.
+
+    :example:
+
+    .. code-block:: yaml
+
+            policies:
+              - name: turn-on-public-ip-protection
+                resource: aws.subnet
+                filters:
+                  - type: attributes
+                    key: "MapPublicIpOnLaunch.enabled"
+                    value: false
+                actions:
+                  - type: modify-subnet-attribute
+                    attributes:
+                      "MapPublicIpOnLaunch: false"
+                      "idle_timeout.timeout_seconds": 120
+    """
+    schema = {
+        'type': 'object',
+        'additionalProperties': False,
+        'properties': {
+            'type': {
+                'enum': ['modify-subnet-attribute']},
+            'attributes': {
+                'type': 'object',
+                'additionalProperties': False,
+                'properties': {
+                    'assign_ipv6_address_on_creation.value': {
+                        'enum': ['true', 'false', True, False]},
+                    'map_public_ip_on_launch.value': {
+                        'enum': ['true', 'false', True, False]},
+                    'subnetId': {'type': 'string'},
+                    'map_customer_owned_ip_on_launch.value': {
+                        'enum': ['true', 'false', True, False]},
+                    'customer_owned_ipv4_pool': {'type': 'string'},
+                    'enable_dns64.enabled': {
+                        'enum': ['true', 'false', True, False]},
+                    'enable_resource_name_dns_a_record_on_launch.value': {
+                        'enum': ['true', 'false', True, False]},
+                    'enable_resource_name_dns_AAAA_record_on_launch.value': {
+                        'enum': ['true', 'false', True, False]},
+                    'EnableLniAtDeviceIndex': {'type': 'number'},
+                    'disable_lni_at_device_index.value': {
+                        'enum': ['true', 'false', True, False]},
+                    
+                },
+            },
+        },
+    }
+    permissions = ("ec2:ModifySubentAttributes",)
+
+    def process(self, resources):
+        client = local_session(self.manager.session_factory).client('ec2')
+        for sub in resources:
+            self.manager.retry(
+                client.modify_subnet_attribute,
+                SubId= SubnetId,MapPublicIpOnLaunch={"Value": False}
+            )
+        return resources
