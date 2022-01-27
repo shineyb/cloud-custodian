@@ -5,6 +5,7 @@ import operator
 import zlib
 import jmespath
 import re
+import pdb
 
 
 from c7n.actions import BaseAction, ModifyVpcSecurityGroupsAction
@@ -2599,16 +2600,18 @@ class SubnetModifyAtrributes(BaseAction):
                       "MapPublicIpOnLaunch: false"
                       "idle_timeout.timeout_seconds": 120
     """
+    pdb.set_trace()
     schema = type_schema(
-        'modify-subnet-attribute',
+        "modify-subnet-attribute",
         {
-            'map_public_ip_on_launch.value': {'type': 'boolean'}
+            'map_public_ip_on_launch': {'type': 'boolean'}
         })
 
     permissions = ("ec2:ModifySubentAttributes",)
 
     def process(self, resources):
         client = local_session(self.manager.session_factory).client('ec2')
+        breakpoint()
         for sub in resources:
             self.manager.retry(
                 client.modify_subnet_attribute,

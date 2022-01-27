@@ -3178,17 +3178,23 @@ class TestPrefixList(BaseTest):
                 "resource": "aws.subnet",
                 "filters": [
                     {
-                        "key": "map_public_ip_on_launch.value"
+                        "key": "map_public_ip_on_launch",
+                        "value": False,
                     },
                 ],
                 "actions": [
                     {
                         "type": "modify_subnet_attribute",
                         "attributes": {
-                            "map_public_ip_on_launch.value": "false",
+                            "map_public_ip_on_launch": "True",
                         },
                     },
                 ],
             },
             session_factory=session_factory,
         )
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+        Subnet = resources[0][SubnetId]
+        attrs = client.describe_subnets(
+            SubnetId)
