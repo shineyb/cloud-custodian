@@ -6,6 +6,7 @@ import zlib
 import jmespath
 import re
 
+
 from c7n.actions import BaseAction, ModifyVpcSecurityGroupsAction
 from c7n.exceptions import PolicyValidationError, ClientError
 from c7n.filters import (
@@ -2576,8 +2577,9 @@ class Entry(Filter):
                 r[self.match_annotation_key] = matched
         return results
 
-@Vpc.action_registry.register('modify_subnet_attribute')
-class VpcSubnetModifyAtrributes(BaseAction):
+
+@Subnet.action_registry.register('modify_subnet_attribute')
+class SubnetModifyAtrributes(BaseAction):
     """Modify subnet attributes.
 
     :example:
@@ -2597,38 +2599,12 @@ class VpcSubnetModifyAtrributes(BaseAction):
                       "MapPublicIpOnLaunch: false"
                       "idle_timeout.timeout_seconds": 120
     """
-    schema = {
-        'type': 'object',
-        'additionalProperties': False,
-        'properties': {
-            'type': {
-                'enum': ['modify-subnet-attribute']},
-            'attributes': {
-                'type': 'object',
-                'additionalProperties': False,
-                'properties': {
-                    'assign_ipv6_address_on_creation.value': {
-                        'enum': ['true', 'false', True, False]},
-                    'map_public_ip_on_launch.value': {
-                        'enum': ['true', 'false', True, False]},
-                    'subnetId': {'type': 'string'},
-                    'map_customer_owned_ip_on_launch.value': {
-                        'enum': ['true', 'false', True, False]},
-                    'customer_owned_ipv4_pool': {'type': 'string'},
-                    'enable_dns64.enabled': {
-                        'enum': ['true', 'false', True, False]},
-                    'enable_resource_name_dns_a_record_on_launch.value': {
-                        'enum': ['true', 'false', True, False]},
-                    'enable_resource_name_dns_AAAA_record_on_launch.value': {
-                        'enum': ['true', 'false', True, False]},
-                    'EnableLniAtDeviceIndex': {'type': 'number'},
-                    'disable_lni_at_device_index.value': {
-                        'enum': ['true', 'false', True, False]},
-                    
-                },
-            },
-        },
-    }
+    schema = type_schema(
+        'modify-subnet-attribute',
+        {
+            'map_public_ip_on_launch.value': {'type': 'boolean'}
+        })
+
     permissions = ("ec2:ModifySubentAttributes",)
 
     def process(self, resources):
@@ -2636,6 +2612,6 @@ class VpcSubnetModifyAtrributes(BaseAction):
         for sub in resources:
             self.manager.retry(
                 client.modify_subnet_attribute,
-                SubId= SubnetId,MapPublicIpOnLaunch={"Value": False}
+                SubId=sub.subnet_id, MapPublicIpOnLaunch={"Value": False}
             )
         return resources

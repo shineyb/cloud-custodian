@@ -3168,7 +3168,6 @@ class TestPrefixList(BaseTest):
         assert 'c7n:matched-entries' in resources[0]
         assert 'c7n:prefix-entries' in resources[0]
 
-
     def test_subnet_modify_attributes(self):
         session_factory = self.record_flight_data(
             "test_subnet_modify_attributes")
@@ -3184,7 +3183,7 @@ class TestPrefixList(BaseTest):
                 ],
                 "actions": [
                     {
-                        "type": "modify-subnet",
+                        "type": "modify_subnet_attribute",
                         "attributes": {
                             "map_public_ip_on_launch.value": "false",
                         },
@@ -3193,10 +3192,3 @@ class TestPrefixList(BaseTest):
             },
             session_factory=session_factory,
         )
-        # resources = p.run()
-        # self.assertEqual(len(resources), 1)
-        # arn = resources[0]["LoadBalancerArn"]
-        # attrs = client.describe_load_balancer_attributes(
-        #     LoadBalancerArn=arn)["Attributes"]
-        # attrs = {obj['Key']: obj['Value'] for obj in attrs}
-        # assert attrs['deletion_protection.enabled'] == 'true'
