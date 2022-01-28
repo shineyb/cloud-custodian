@@ -5,9 +5,6 @@ import operator
 import zlib
 import jmespath
 import re
-import pdb
-
-
 from c7n.actions import BaseAction, ModifyVpcSecurityGroupsAction
 from c7n.exceptions import PolicyValidationError, ClientError
 from c7n.filters import (
@@ -2591,30 +2588,34 @@ class SubnetModifyAtrributes(BaseAction):
               - name: turn-on-public-ip-protection
                 resource: aws.subnet
                 filters:
-                  - type: attributes
+                  - type: subnet
                     key: "MapPublicIpOnLaunch.enabled"
                     value: false
                 actions:
                   - type: modify-subnet-attribute
                     attributes:
                       "MapPublicIpOnLaunch: false"
-                      "idle_timeout.timeout_seconds": 120
     """
-    pdb.set_trace()
+
     schema = type_schema(
         "modify-subnet-attribute",
-        {
-            'map_public_ip_on_launch': {'type': 'boolean'}
+        **{
+            'type': {'enum': ['modify_subnet_attribute']},
+            'map_public_ip_on_launch': {'type': 'boolean'},
+            'assign_ipv6_address_on_creation': {'type': 'boolean'},
+            'map_customer_owned_ip_on_launch': {'type': 'boolean'},
+            'enable_dns_64': {'type': 'boolean'},
+            'enable_resource_name_dns_a_record_on_launch': {'type': 'boolean'},
+            'enable_resource_name_dns_aaaa_record_on_launch': {'type': 'boolean'},
+            'disable_lni_at_device_index': {'type': 'boolean'}
         })
 
     permissions = ("ec2:ModifySubentAttributes",)
 
     def process(self, resources):
         client = local_session(self.manager.session_factory).client('ec2')
-        breakpoint()
-        for sub in resources:
-            self.manager.retry(
-                client.modify_subnet_attribute,
-                SubId=sub.subnet_id, MapPublicIpOnLaunch={"Value": False}
-            )
+        map_public_ip_on_launch = self.data.get('map_public_ip_on_launch')
+        for r in resources:
+            client.modify_subnet_attribute(
+                SubnetId=r['SubnetId'], MapPublicIpOnLaunch={'Value': map_public_ip_on_launch})
         return resources

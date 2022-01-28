@@ -3168,6 +3168,8 @@ class TestPrefixList(BaseTest):
         assert 'c7n:matched-entries' in resources[0]
         assert 'c7n:prefix-entries' in resources[0]
 
+class TestModifySubnet(BaseTest):
+
     def test_subnet_modify_attributes(self):
         session_factory = self.record_flight_data(
             "test_subnet_modify_attributes")
@@ -3178,23 +3180,22 @@ class TestPrefixList(BaseTest):
                 "resource": "aws.subnet",
                 "filters": [
                     {
-                        "key": "map_public_ip_on_launch",
-                        "value": False,
+                        "type": "value",
+                        "key": "MapPublicIpOnLaunch",
+                        "value": True,
                     },
                 ],
                 "actions": [
                     {
                         "type": "modify_subnet_attribute",
-                        "attributes": {
-                            "map_public_ip_on_launch": "True",
-                        },
+                        "map_public_ip_on_launch": False,
                     },
                 ],
             },
-            session_factory=session_factory,
-        )
+            session_factory=session_factory)
         resources = p.run()
-        self.assertEqual(len(resources), 1)
-        Subnet = resources[0][SubnetId]
-        attrs = client.describe_subnets(
-            SubnetId)
+        ModifiedSubnet=client.describe_subnets(
+            SubnetIds=[resources[0]['SubnetId']])
+        MapPublicIpOnLaunch = ModifiedSubnet["Subnets"][0]["MapPublicIpOnLaunch"]
+        self.assertEqual(MapPublicIpOnLaunch, False)
+
