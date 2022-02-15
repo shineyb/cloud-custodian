@@ -2576,7 +2576,7 @@ class Entry(Filter):
         return results
 
 
-@Subnet.action_registry.register('modify_subnet_attribute')
+@Subnet.action_registry.register('modify')
 class SubnetModifyAtrributes(BaseAction):
     """Modify subnet attributes.
 
@@ -2593,29 +2593,38 @@ class SubnetModifyAtrributes(BaseAction):
                     value: false
                 actions:
                   - type: modify-subnet-attribute
-                    attributes:
-                      "MapPublicIpOnLaunch: false"
+                    MapPublicIpOnLaunch: false
     """
 
     schema = type_schema(
         "modify-subnet-attribute",
-        **{
-            'type': {'enum': ['modify_subnet_attribute']},
-            'map_public_ip_on_launch': {'type': 'boolean'},
-            'assign_ipv6_address_on_creation': {'type': 'boolean'},
-            'map_customer_owned_ip_on_launch': {'type': 'boolean'},
-            'enable_dns_64': {'type': 'boolean'},
-            'enable_resource_name_dns_a_record_on_launch': {'type': 'boolean'},
-            'enable_resource_name_dns_aaaa_record_on_launch': {'type': 'boolean'},
-            'disable_lni_at_device_index': {'type': 'boolean'}
-        })
+        AssignIpv6AddressOnCreation={'type': 'boolean'},
+        CustomerOwnedIpv4Pool={'type': 'string'},
+        DisableLniAtDeviceIndex={'type': 'boolean'},
+        EnableLniAtDeviceIndex={'type': 'integer'},
+        EnableResourceNameDnsAAAARecordOnLaunch={'type': 'boolean'},
+        EnableResourceNameDnsARecordOnLaunch={'type': 'boolean'},
+        EnableDns64={'type': 'boolean'},
+        MapPublicIpOnLaunch={'type': 'boolean'},
+        MapCustomerOwnedIpOnLaunch={'type': 'boolean'},
+        PrivateDnsHostnameTypeOnLaunch={
+            'type': 'string', 'enum': ['ip-name', 'resource-name']
+        }
+    )
 
     permissions = ("ec2:ModifySubentAttributes",)
 
     def process(self, resources):
         client = local_session(self.manager.session_factory).client('ec2')
-        map_public_ip_on_launch = self.data.get('map_public_ip_on_launch')
+        params = dict(self.data)
+        params.pop('type')
+
+        for k in list(params):
+            if isinstance(params[k], bool):
+                params[k] = {'Value': params[k]}
+
         for r in resources:
-            client.modify_subnet_attribute(
-                SubnetId=r['SubnetId'], MapPublicIpOnLaunch={'Value': map_public_ip_on_launch})
+            self.manager.retry(
+                client.modify_subnet_attribute,
+                SubnetId=r['SubnetId'], **params)
         return resources
