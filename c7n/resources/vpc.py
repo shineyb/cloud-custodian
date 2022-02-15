@@ -2592,7 +2592,7 @@ class SubnetModifyAtrributes(BaseAction):
                     key: "MapPublicIpOnLaunch.enabled"
                     value: false
                 actions:
-                  - type: modify-subnet-attribute
+                  - type: modify
                     MapPublicIpOnLaunch: false
     """
 
