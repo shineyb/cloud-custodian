@@ -3171,7 +3171,7 @@ class TestPrefixList(BaseTest):
 class TestModifySubnet(BaseTest):
 
     def test_subnet_modify_attributes(self):
-        session_factory = self.record_flight_data(
+        session_factory = self.replay_flight_data(
             "test_subnet_modify_attributes")
         client = session_factory().client("ec2")
         p = self.load_policy(
@@ -3187,8 +3187,8 @@ class TestModifySubnet(BaseTest):
                 ],
                 "actions": [
                     {
-                        "type": "modify_subnet_attribute",
-                        "map_public_ip_on_launch": False,
+                        "type": "modify",
+                        "MapPublicIpOnLaunch": False,
                     },
                 ],
             },
