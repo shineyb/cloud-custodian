@@ -2597,7 +2597,7 @@ class SubnetModifyAtrributes(BaseAction):
     """
 
     schema = type_schema(
-        "modify',
+        "modify",
         AssignIpv6AddressOnCreation={'type': 'boolean'},
         CustomerOwnedIpv4Pool={'type': 'string'},
         DisableLniAtDeviceIndex={'type': 'boolean'},
