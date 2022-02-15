@@ -3168,6 +3168,7 @@ class TestPrefixList(BaseTest):
         assert 'c7n:matched-entries' in resources[0]
         assert 'c7n:prefix-entries' in resources[0]
 
+
 class TestModifySubnet(BaseTest):
 
     def test_subnet_modify_attributes(self):
@@ -3194,8 +3195,7 @@ class TestModifySubnet(BaseTest):
             },
             session_factory=session_factory)
         resources = p.run()
-        ModifiedSubnet=client.describe_subnets(
+        ModifiedSubnet = client.describe_subnets(
             SubnetIds=[resources[0]['SubnetId']])
         MapPublicIpOnLaunch = ModifiedSubnet["Subnets"][0]["MapPublicIpOnLaunch"]
         self.assertEqual(MapPublicIpOnLaunch, False)
-
