@@ -2612,7 +2612,7 @@ class SubnetModifyAtrributes(BaseAction):
         }
     )
 
-    permissions = ("ec2:ModifySubnetAttributes",)
+    permissions = ("ec2:ModifySubnetAttribute",)
 
     def process(self, resources):
         client = local_session(self.manager.session_factory).client('ec2')
