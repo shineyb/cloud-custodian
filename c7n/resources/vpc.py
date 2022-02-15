@@ -2588,7 +2588,7 @@ class SubnetModifyAtrributes(BaseAction):
               - name: turn-on-public-ip-protection
                 resource: aws.subnet
                 filters:
-                  - type: subnet
+                  - type: value
                     key: "MapPublicIpOnLaunch.enabled"
                     value: false
                 actions:
