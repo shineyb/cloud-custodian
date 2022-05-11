@@ -1,0 +1,9 @@
+{
+    "status_code": 200,
+    "data": {
+        "ResourceInfo": {
+            "RoleArn": "arn:aws:iam::644160558196:role/aws-service-role/lakeformation.amazonaws.com/AWSServiceRoleForLakeFormationDataAccess"
+        },
+        "ResponseMetadata": {}
+    }
+}

@@ -1,0 +1,55 @@
+{
+    "status_code": 200,
+    "data": {
+        "PaginationToken": "",
+        "ResourceTagMappingList": [
+            {
+                "ResourceARN": "arn:aws:s3:::example-abc-123",
+                "Tags": [
+                    {
+                        "Key": "ResourceCreator",
+                        "Value": "kapil"
+                    },
+                    {
+                        "Key": "c7n-resource-classification",
+                        "Value": "net-new"
+                    },
+                    {
+                        "Key": "c7n:FindingId:This is a test",
+                        "Value": "us-east-1/644160558196/1d86d52026f337fc5eda946ff044d20d/83df653749b238554bde9a26f81aced2:2021-07-18T17:14:56.583412+00:00"
+                    },
+                    {
+                        "Key": "c7n-ResourceCreatedTime",
+                        "Value": "2020-10-07 19:21:30.922957"
+                    }
+                ]
+            },
+            {
+                "ResourceARN": "arn:aws:s3:::reboot-s3-bad-01",
+                "Tags": [
+                    {
+                        "Key": "Owner",
+                        "Value": "erik.gartz@capitalone.com"
+                    },
+                    {
+                        "Key": "ASV",
+                        "Value": "ASVREBOOT"
+                    },
+                    {
+                        "Key": "OwnerContact",
+                        "Value": "wnz812"
+                    },
+                    {
+                        "Key": "c7n:FindingId:This is a test",
+                        "Value": "us-east-1/644160558196/1d86d52026f337fc5eda946ff044d20d/83df653749b238554bde9a26f81aced2:2021-07-18T17:14:56.583412+00:00"
+                    },
+                    {
+                        "Key": "CMDBEnvironment",
+                        "Value": "ENVNPREBOOT"
+                    }
+                ]
+            }
+        ],
+        "ResponseMetadata": {}
+    }
+}

@@ -1,16 +1,18 @@
 from .common import BaseTest
-import pdb
-
-
 
 class LakeFormationTest(BaseTest):
 
     def test_lakeformation_value_filter(self):
-        factory = self.record_flight_data("test_lakeformation_value_filter")
+        factory = self.record_flight_data("test_lakeformation_query_resources")
         p = self.load_policy({
-            'name': 'example-abc-123',
-            'resource': 'lakeformation'},
+            'name': 'list_lakeformation_resources',
+            'resource': 'lakeformation',
+            "filters": [{"RoleArn": "present"}],},
             session_factory=factory)
         resources = p.run()
+        self.assertEqual(len(resources), 2)
+        TagsList=resources[0]['Tags']
+        self.assertEqual((TagsList[0])['Key'], 'ResourceCreator')
+        self.assertEqual((TagsList[0])['Value'], 'kapil')
 
 
