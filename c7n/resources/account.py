@@ -1839,3 +1839,37 @@ class SecHubEnabled(Filter):
         if state == bool(sechub):
             return resources
         return []
+
+
+@filters.register('lakeformation-cross-account')
+class LakeformationFilter(Filter):
+    """To check if S3 bucket i.e. registered for Lakeformation belongs to the same account or not.
+
+    :example:
+
+    .. code-block:: yaml
+
+       policies:
+         - name: lakeformation-cross-account-bucket
+           resource: aws.account
+           filters:
+            - type: lakeformation-cross-account
+
+    """
+
+    def process(self, resources, event=None):
+        Buckets = self.manager.get_resource_manager('s3').resources()
+        resourcelist = []
+        client = local_session(self.manager.session_factory).client('lakeformation')
+        resourcelist = client.list_resources()
+        filtered_resources = []
+        for resource in resourcelist['ResourceInfoList']:
+            arnName = resource['ResourceArn']
+            arnName = arnName.partition('arn:aws:s3:::')[2]
+            isMatch = 0
+            for bucket in Buckets:
+                if bucket['Name'] == arnName:
+                    isMatch = 1
+            if isMatch == 0:
+                filtered_resources.append(resource)
+        return filtered_resources
