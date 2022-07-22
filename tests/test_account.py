@@ -1234,7 +1234,7 @@ class AccountDataEvents(BaseTest):
         self.assertEqual(len(resources), 1)
 
     def test_lakeformation_filter(self):
-        factory = self.record_flight_data("test_lakeformation_cross_account_s3")
+        factory = self.replay_flight_data("test_lakeformation_cross_account_s3")
         p = self.load_policy(
             {
                 'name': 'test-lakeformation-cross-account-bucket',
