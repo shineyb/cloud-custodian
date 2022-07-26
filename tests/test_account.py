@@ -1240,10 +1240,10 @@ class AccountDataEvents(BaseTest):
                 'name': 'test-lakeformation-cross-account-bucket',
                 'resource': 'account',
                 'filters': [{
-                    'type': 'lakeformation-cross-account'
+                    'type': 'lakeformation-s3-cross-account'
                 }],
             },
             session_factory=factory)
         resources = p.run()
-        self.assertEqual(len(resources), 1)
-        self.assertEqual(resources[0]["ResourceArn"], "arn:aws:s3:::davidkshepherd.com")
+        self.assertEqual(len(resources[0]["c7n:lakeformations3crossaccount"]), 2)
+        self.assertEqual(resources[0]["c7n:lakeformations3crossaccount"][1], "testarena.com")

@@ -1841,7 +1841,7 @@ class SecHubEnabled(Filter):
         return []
 
 
-@filters.register('lakeformation-cross-account')
+@filters.register('lakeformation-s3-cross-account')
 class LakeformationFilter(Filter):
     """To check if S3 bucket i.e. registered for Lakeformation belongs to the same account or not.
 
@@ -1853,23 +1853,27 @@ class LakeformationFilter(Filter):
          - name: lakeformation-cross-account-bucket
            resource: aws.account
            filters:
-            - type: lakeformation-cross-account
+            - type: lakeformation-s3-cross-account
 
     """
 
-    def process(self, resources, event=None):
-        Buckets = self.manager.get_resource_manager('s3').resources()
-        resourcelist = []
-        client = local_session(self.manager.session_factory).client('lakeformation')
-        resourcelist = client.list_resources()
-        filtered_resources = []
-        for resource in resourcelist['ResourceInfoList']:
-            arnName = resource['ResourceArn']
-            arnName = arnName.partition('arn:aws:s3:::')[2]
-            isMatch = 0
-            for bucket in Buckets:
-                if bucket['Name'] == arnName:
-                    isMatch = 1
-            if isMatch == 0:
-                filtered_resources.append(resource)
-        return filtered_resources
+    def process(self,resources, event=None):
+        if not resources[0].get('c7n:lakeformations3crossaccount'):
+            Buckets = self.manager.get_resource_manager('s3').resources()
+            resourcelist = []
+            client = local_session(self.manager.session_factory).client('lakeformation')
+            resourcelist = client.list_resources()
+            filtered_resources_set = set()
+            filtered_resources=[]
+            for resource in resourcelist['ResourceInfoList']:
+                arnName = resource['ResourceArn']
+                arnName = arnName.partition('arn:aws:s3:::')[2]
+                isMatch = 0
+                for bucket in Buckets:
+                    if bucket['Name'] == arnName:
+                        isMatch = 1
+                if isMatch == 0:
+                    filtered_resources_set.add(arnName)
+            filtered_resources=list(filtered_resources_set)
+            resources[0]['c7n:lakeformations3crossaccount'] = filtered_resources
+        return resources
