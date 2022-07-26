@@ -1857,14 +1857,14 @@ class LakeformationFilter(Filter):
 
     """
 
-    def process(self,resources, event=None):
+    def process(self, resources, event=None):
         if not resources[0].get('c7n:lakeformations3crossaccount'):
             Buckets = self.manager.get_resource_manager('s3').resources()
             resourcelist = []
             client = local_session(self.manager.session_factory).client('lakeformation')
             resourcelist = client.list_resources()
             filtered_resources_set = set()
-            filtered_resources=[]
+            filtered_resources = []
             for resource in resourcelist['ResourceInfoList']:
                 arnName = resource['ResourceArn']
                 arnName = arnName.partition('arn:aws:s3:::')[2]
@@ -1874,6 +1874,6 @@ class LakeformationFilter(Filter):
                         isMatch = 1
                 if isMatch == 0:
                     filtered_resources_set.add(arnName)
-            filtered_resources=list(filtered_resources_set)
+            filtered_resources = list(filtered_resources_set)
             resources[0]['c7n:lakeformations3crossaccount'] = filtered_resources
         return resources
