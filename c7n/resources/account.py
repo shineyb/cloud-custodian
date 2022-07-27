@@ -1857,6 +1857,9 @@ class LakeformationFilter(Filter):
 
     """
 
+    permissions = ('lakeformation:ListResources',)
+    schema = type_schema('lakeformation-s3-cross-account', enabled={'type': 'boolean'})
+
     def process(self, resources, event=None):
         if not resources[0].get('c7n:lakeformations3crossaccount'):
             Buckets = self.manager.get_resource_manager('s3').resources()
