@@ -746,7 +746,7 @@ class ServiceLimit(Filter):
         if exceeded:
             resources[0]['c7n:ServiceLimitsExceeded'] = exceeded
             return resources
-        return []
+
 
     def process_check(self, client, check, resources, event=None):
         region = self.manager.config.region
@@ -1875,5 +1875,9 @@ class LakeformationFilter(Filter):
                 if isMatch == 0:
                     filtered_resources_set.add(arnName)
             filtered_resources = list(filtered_resources_set)
-            resources[0]['c7n:lakeformations3crossaccount'] = filtered_resources
-        return resources
+            if len(filtered_resources) > 0:
+                resources[0]['c7n:lakeformations3crossaccount'] = filtered_resources
+            else:
+                return []
+            return resources
+
