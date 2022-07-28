@@ -5,6 +5,7 @@
 import json
 import time
 import datetime
+import jmespath
 from botocore.exceptions import ClientError
 from fnmatch import fnmatch
 from dateutil.parser import parse as parse_date
@@ -1857,8 +1858,9 @@ class LakeformationFilter(Filter):
 
     """
 
+    schema = type_schema('lakeformation-s3-cross-account', rinherit=ValueFilter.schema)
+    schema_alias = False
     permissions = ('lakeformation:ListResources',)
-    schema = type_schema('lakeformation-s3-cross-account', enabled={'type': 'boolean'})
 
     def process(self, resources, event=None):
         if not resources[0].get('c7n:lakeformations3crossaccount'):
@@ -1866,18 +1868,14 @@ class LakeformationFilter(Filter):
             resourcelist = []
             client = local_session(self.manager.session_factory).client('lakeformation')
             resourcelist = client.list_resources()
-            filtered_resources_set = set()
             filtered_resources = []
+            lakeformation_buckets_set = set()
+            account_buckets_set = set()
             for resource in resourcelist['ResourceInfoList']:
                 arnName = resource['ResourceArn']
-                arnName = arnName.partition('arn:aws:s3:::')[2]
-                isMatch = 0
-                for bucket in Buckets:
-                    if bucket['Name'] == arnName:
-                        isMatch = 1
-                if isMatch == 0:
-                    filtered_resources_set.add(arnName)
-            filtered_resources = list(filtered_resources_set)
+                lakeformation_buckets_set.add(arnName.partition('arn:aws:s3:::')[2])
+            account_buckets_set = set(jmespath.search('[].Name', Buckets))
+            filtered_resources = list(lakeformation_buckets_set.difference(account_buckets_set))
             resources[0]['c7n:lakeformations3crossaccount'] = filtered_resources
             if len(filtered_resources) > 0:
                 resources[0]['c7n:lakeformations3crossaccount'] = filtered_resources

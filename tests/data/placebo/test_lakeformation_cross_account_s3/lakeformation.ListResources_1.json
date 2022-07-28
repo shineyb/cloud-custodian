@@ -1,7 +1,22 @@
 {
     "status_code": 200,
     "data": {
+        "ResponseMetadata": {},
         "ResourceInfoList": [
+            {
+                "ResourceArn": "arn:aws:s3:::c7n-test-abc/test",
+                "RoleArn": "arn:aws:iam::644160558196:role/aws-service-role/lakeformation.amazonaws.com/AWSServiceRoleForLakeFormationDataAccess",
+                "LastModified": {
+                    "__class__": "datetime",
+                    "year": 2022,
+                    "month": 7,
+                    "day": 28,
+                    "hour": 18,
+                    "minute": 41,
+                    "second": 0,
+                    "microsecond": 537000
+                }
+            },
             {
                 "ResourceArn": "arn:aws:s3:::d3domain.com",
                 "RoleArn": "arn:aws:iam::644160558196:role/aws-service-role/lakeformation.amazonaws.com/AWSServiceRoleForLakeFormationDataAccess",
@@ -14,20 +29,6 @@
                     "minute": 58,
                     "second": 36,
                     "microsecond": 160000
-                }
-            },
-            {
-                "ResourceArn": "arn:aws:s3:::example-abc-123",
-                "RoleArn": "arn:aws:iam::644160558196:role/aws-service-role/lakeformation.amazonaws.com/AWSServiceRoleForLakeFormationDataAccess",
-                "LastModified": {
-                    "__class__": "datetime",
-                    "year": 2022,
-                    "month": 5,
-                    "day": 3,
-                    "hour": 10,
-                    "minute": 56,
-                    "second": 11,
-                    "microsecond": 572000
                 }
             },
             {
@@ -58,7 +59,6 @@
                     "microsecond": 196000
                 }
             }
-        ],
-        "ResponseMetadata": {}
+        ]
     }
 }

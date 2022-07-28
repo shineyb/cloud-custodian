@@ -1246,4 +1246,5 @@ class AccountDataEvents(BaseTest):
             session_factory=factory)
         resources = p.run()
         self.assertEqual(len(resources), 1)
-        self.assertEqual(len(resources[0]["c7n:lakeformations3crossaccount"]), 2)
+        print(resources)
+        self.assertEqual(len(resources[0]["c7n:lakeformations3crossaccount"]), 3)
