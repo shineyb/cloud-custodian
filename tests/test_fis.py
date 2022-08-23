@@ -46,7 +46,7 @@ class TestFIS(BaseTest):
         assert experiment['tags'] == {'Location': 'Messina'}
 
     def test_fis_mark_match(self):
-        session_factory = self.record_flight_data(
+        session_factory = self.replay_flight_data(
             "test_fis_mark_match"
         )
         p = self.load_policy(
