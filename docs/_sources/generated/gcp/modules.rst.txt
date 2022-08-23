@@ -1,7 +1,0 @@
-GCP
-===
-
-.. toctree::
-   :maxdepth: 4
-
-   c7n_gcp
