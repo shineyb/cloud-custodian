@@ -42,8 +42,8 @@
             },
             "roleArn": "arn:aws:iam::644160558196:role/aws-service-role/fis.amazonaws.com/AWSServiceRoleForFIS",
             "tags": {
-                "custodian_cleanup": "Resource does not meet policy: delete@2022/08/19",
-                "Name": "Charybdis"
+                "custodian_cleanup": "Resource does not meet policy: delete@2022/08/27",
+                "Name": "Shiney"
             }
         }
     }

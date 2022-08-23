@@ -45,21 +45,21 @@ class TestFIS(BaseTest):
         )
         assert experiment['tags'] == {'Location': 'Messina'}
 
-    def test_fis_mark_for_op(self):
+    def test_fis_mark_match(self):
         session_factory = self.record_flight_data(
-            "test_fis_mark_for_op"
+            "test_fis_mark_match"
         )
         p = self.load_policy(
             {
                 "name": "test_fis_mark_for_op",
                 "resource": "aws.fis-template",
-                "filters": [{'tag:Name': 'Charybdis'}],
+                "filters": [{'tag:Name': 'Shiney'}],
                 "actions": [
                     {
                         "type": "mark-for-op",
-                        "tag": "custodian_cleanup",
+                        "days": 4,
                         "op": "delete",
-                        "days": 1,
+                        "tag": "custodian_cleanup",
                     }
                 ],
             },
@@ -68,11 +68,7 @@ class TestFIS(BaseTest):
         resources = p.run()
         self.assertEqual(len(resources), 1)
 
-    def test_fis_marked_for_op(self):
-        session_factory = self.record_flight_data(
-            "test_fis_marked_for_op"
-        )
-        p = self.load_policy(
+        policy = self.load_policy(
             {
                 "name": "test_fis_marked_for_op",
                 "resource": "aws.fis-template",
@@ -81,12 +77,13 @@ class TestFIS(BaseTest):
                         "type": "marked-for-op",
                         "tag": "custodian_cleanup",
                         "op": "delete",
-                        "days": 1,
+                        "skew": 4,
                     }
                 ],
             },
             session_factory=session_factory,
         )
-        resources = p.run()
-        print(resources)
+        resources = policy.run()
         self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['Tags'][1],
+                        {'Key': 'Name', 'Value': 'Shiney'})

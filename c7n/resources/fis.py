@@ -50,7 +50,7 @@ class TagExperiment(Tag):
 @ExperimentTemplate.action_registry.register('mark-for-op', TagDelayedAction)
 @ExperimentTemplate.filter_registry.register('marked-for-op', TagActionFilter)
 class MarkForOp(TagDelayedAction):
-    """Action to mark a Secret resource for deferred action :example:
+    """Action to create a delayed action on fis-template to start at a later date
 
     .. code-block:: yaml
 
