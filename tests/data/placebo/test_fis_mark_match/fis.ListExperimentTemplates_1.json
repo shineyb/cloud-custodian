@@ -27,7 +27,6 @@
                     "microsecond": 687000
                 },
                 "tags": {
-                    "custodian_cleanup": "Resource does not meet policy: delete@2022/08/27",
                     "Name": "Shiney"
                 }
             }

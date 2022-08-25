@@ -87,4 +87,4 @@ class TestFIS(BaseTest):
         self.assertEqual(len(resources), 1)
         self.assertEqual(resources[0]['Tags'][0],
                         {'Key': 'custodian_cleanup',
-                         'Value': 'Resource does not meet policy: delete@2022/08/27'})
+                         'Value': 'Resource does not meet policy: delete@2022/08/29'})
