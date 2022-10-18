@@ -28,6 +28,8 @@ be applies for all resources.
 
    group-appflow.rst
 
+   group-appsync.rst
+
    group-autoscaling.rst
 
    group-backup.rst
@@ -137,6 +139,8 @@ be applies for all resources.
    group-kinesisvideo.rst
 
    group-kms.rst
+
+   group-lakeformation.rst
 
    group-lambda.rst
 

@@ -129,6 +129,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../examples/ebssnapshots.html">EBS - Create and Manage Snapshots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/ebsunencrypted.html">EBS - Delete Unencrypted</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/ec2-auto-tag-user.html">EC2 - auto-tag aws userName on resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/ec2ModifyInstanceMetadataOptions.html">EC2 - Modify Instance Metadata Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/ec2ModifyInstanceMetadataOptions.html#examples">Examples:</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/ec2offhours.html">EC2 - Offhours Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/ec2oldinstances.html">EC2 - Old Instance Report</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/ec2poweronstoppedforpatching.html">EC2 - Power On For Scheduled Patching</a></li>
@@ -286,6 +290,7 @@
 <li class="toctree-l3"><a class="reference internal" href="aws-common-filters.html#image">image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aws-common-filters.html#instance-attribute">instance-attribute</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aws-common-filters.html#logging">logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aws-common-filters.html#login-profile">login-profile</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aws-common-filters.html#marked-for-op">marked-for-op</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aws-common-filters.html#metrics">metrics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="aws-common-filters.html#network-location">network-location</a></li>
@@ -363,6 +368,14 @@
 <li class="toctree-l3"><a class="reference internal" href="app-flow.html">aws.app-flow</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="app-flow.html#filters">Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="app-flow.html#actions">Actions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="group-appsync.html">appsync resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphql-api.html">aws.graphql-api</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="graphql-api.html#filters">Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="graphql-api.html#actions">Actions</a></li>
 </ul>
 </li>
 </ul>
@@ -1202,6 +1215,14 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="group-lakeformation.html">lakeformation resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="datalake-location.html">aws.datalake-location</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="datalake-location.html#filters">Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="datalake-location.html#actions">Actions</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2 current"><a class="reference internal" href="group-lambda.html">lambda resources</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">aws.lambda</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#filters">Filters</a></li>
@@ -1499,6 +1520,11 @@
 <li class="toctree-l3"><a class="reference internal" href="catalog-portfolio.html">aws.catalog-portfolio</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="catalog-portfolio.html#filters">Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="catalog-portfolio.html#actions">Actions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="catalog-product.html">aws.catalog-product</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="catalog-product.html#filters">Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="catalog-product.html#actions">Actions</a></li>
 </ul>
 </li>
 </ul>
@@ -5872,6 +5898,7 @@ keys. The above policy can also be written as:</p>
 <li><p><a class="reference internal" href="#aws-lambda-actions-remove-statements"><span class="std std-ref">remove-statements</span></a></p></li>
 <li><p><a class="reference internal" href="aws-common-actions.html#aws-common-actions-remove-tag"><span class="std std-ref">remove-tag</span></a></p></li>
 <li><p><a class="reference internal" href="#aws-lambda-actions-set-concurrency"><span class="std std-ref">set-concurrency</span></a></p></li>
+<li><p><a class="reference internal" href="#aws-lambda-actions-set-xray-tracing"><span class="std std-ref">set-xray-tracing</span></a></p></li>
 <li><p><a class="reference internal" href="aws-common-actions.html#aws-common-actions-tag"><span class="std std-ref">tag</span></a></p></li>
 <li><p><a class="reference internal" href="#aws-lambda-actions-trim-versions"><span class="std std-ref">trim-versions</span></a></p></li>
 <li><p><a class="reference internal" href="aws-common-actions.html#aws-common-actions-webhook"><span class="std std-ref">webhook</span></a></p></li>
@@ -5966,6 +5993,30 @@ the resource.</p>
 </div>
 </div>
 <p>Permissions - lambda:DeleteFunctionConcurrency, lambda:PutFunctionConcurrency</p>
+</section>
+<section id="set-xray-tracing">
+<span id="aws-lambda-actions-set-xray-tracing"></span><h3>set-xray-tracing<a class="headerlink" href="#set-xray-tracing" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>This action allows for enable Xray tracing to Active</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="toggle docutils container">
+<div class="header docutils container" style=""></div><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">properties</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">state</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boolean</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">enum</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">set-xray-tracing</span><span class="w"></span>
+<span class="nt">required</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">type</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<p>Permissions - lambda:UpdateFunctionConfiguration</p>
 </section>
 <section id="trim-versions">
 <span id="aws-lambda-actions-trim-versions"></span><h3>trim-versions<a class="headerlink" href="#trim-versions" title="Permalink to this headline">¶</a></h3>
