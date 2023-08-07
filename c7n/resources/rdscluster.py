@@ -233,7 +233,6 @@ class RetentionWindow(BaseAction):
         current_retention = int(cluster.get('BackupRetentionPeriod', 0))
         new_retention = self.data['days']
         retention_type = self.data.get('enforce', 'min').lower()
-
         if retention_type == 'min':
             self.set_retention_window(
                 client, cluster, max(current_retention, new_retention))
@@ -244,15 +243,23 @@ class RetentionWindow(BaseAction):
             self.set_retention_window(client, cluster, new_retention)
 
     def set_retention_window(self, client, cluster, retention):
-        _run_cluster_method(
-            client.modify_db_cluster,
-            dict(DBClusterIdentifier=cluster['DBClusterIdentifier'],
-                 BackupRetentionPeriod=retention,
-                 PreferredBackupWindow=cluster['PreferredBackupWindow'],
-                 PreferredMaintenanceWindow=cluster['PreferredMaintenanceWindow']),
-            (client.exceptions.DBClusterNotFoundFault, client.exceptions.ResourceNotFoundFault),
-            client.exceptions.InvalidDBClusterStateFault)
-
+        engine_mode = cluster.get('EngineMode', 0)
+        if engine_mode == 'serverless':
+            _run_cluster_method(
+                client.modify_db_cluster,
+                dict(DBClusterIdentifier=cluster['DBClusterIdentifier'],
+                    BackupRetentionPeriod=retention),
+                (client.exceptions.DBClusterNotFoundFault, client.exceptions.ResourceNotFoundFault),
+                client.exceptions.InvalidDBClusterStateFault)
+        else:
+            _run_cluster_method(
+                client.modify_db_cluster,
+                dict(DBClusterIdentifier=cluster['DBClusterIdentifier'],
+                    BackupRetentionPeriod=retention,
+                    PreferredBackupWindow=cluster['PreferredBackupWindow'],
+                    PreferredMaintenanceWindow=cluster['PreferredMaintenanceWindow']),
+                (client.exceptions.DBClusterNotFoundFault, client.exceptions.ResourceNotFoundFault),
+                client.exceptions.InvalidDBClusterStateFault)
 
 @RDSCluster.action_registry.register('stop')
 class Stop(BaseAction):
