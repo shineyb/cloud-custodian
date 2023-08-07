@@ -241,7 +241,7 @@ class RDSClusterTest(BaseTest):
 
 
     def test_modify_rds_cluster_provisoned(self):
-        session_factory = self.record_flight_data("test_modify_rds_cluster_provisoned")
+        session_factory = self.replay_flight_data("test_modify_rds_cluster_provisoned")
         p = self.load_policy(
             {
                 "name": "modify-db-cluster",
@@ -262,7 +262,7 @@ class RDSClusterTest(BaseTest):
         self.assertEqual(cluster['DBClusters'][0]['BackupRetentionPeriod'], 7)
 
     def test_modify_rds_cluster_serverless_v2(self):
-        session_factory = self.record_flight_data("test_modify_rds_cluster_serverless_v2")
+        session_factory = self.replay_flight_data("test_modify_rds_cluster_serverless_v2")
         p = self.load_policy(
             {
                 "name": "modify-db-cluster",
