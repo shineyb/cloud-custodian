@@ -243,23 +243,23 @@ class RetentionWindow(BaseAction):
             self.set_retention_window(client, cluster, new_retention)
 
     def set_retention_window(self, client, cluster, retention):
-        engine_mode = cluster.get('EngineMode', 0)
-        if engine_mode == 'serverless':
-            _run_cluster_method(
-                client.modify_db_cluster,
-                dict(DBClusterIdentifier=cluster['DBClusterIdentifier'],
-                    BackupRetentionPeriod=retention),
-                (client.exceptions.DBClusterNotFoundFault, client.exceptions.ResourceNotFoundFault),
-                client.exceptions.InvalidDBClusterStateFault)
-        else:
-            _run_cluster_method(
-                client.modify_db_cluster,
-                dict(DBClusterIdentifier=cluster['DBClusterIdentifier'],
-                    BackupRetentionPeriod=retention,
+        params = dict(
+            DBClusterIdentifier=cluster['DBClusterIdentifier'],
+            BackupRetentionPeriod=retention
+        )
+        if cluster.get('EngineMode') != 'serverless':
+            params.update(
+                dict(
                     PreferredBackupWindow=cluster['PreferredBackupWindow'],
-                    PreferredMaintenanceWindow=cluster['PreferredMaintenanceWindow']),
-                (client.exceptions.DBClusterNotFoundFault, client.exceptions.ResourceNotFoundFault),
-                client.exceptions.InvalidDBClusterStateFault)
+                    PreferredMaintenanceWindow=cluster['PreferredMaintenanceWindow'])
+            )
+        _run_cluster_method(
+            client.modify_db_cluster,
+            params,
+            (client.exceptions.DBClusterNotFoundFault, client.exceptions.ResourceNotFoundFault),
+            client.exceptions.InvalidDBClusterStateFault
+        )
+
 
 @RDSCluster.action_registry.register('stop')
 class Stop(BaseAction):
