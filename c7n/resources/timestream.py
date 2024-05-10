@@ -140,4 +140,4 @@ class TimestreamDatabaseDelete(Action):
 
 @TimestreamDatabase.filter_registry.register('kms-key')
 class KmsFilter(KmsRelatedFilter):
-    RelatedIdsExpression = 'KmsKeyId'       
+    RelatedIdsExpression = 'KmsKeyId'
