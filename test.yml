@@ -1,3 +1,0 @@
-policies:
-- name: ec2-tag-compliance-mark
-  resource: aws.timestream-table
