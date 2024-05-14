@@ -193,5 +193,4 @@ class TestTimestreamTable(BaseTest):
         )
         with mock_datetime_now(parser.parse("2024-05-14T22:00:00+00:00"), c7n.filters.backup):
             resources = p.run()
-        print(resources)
         self.assertEqual(len(resources), 1)
