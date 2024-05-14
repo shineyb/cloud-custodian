@@ -193,4 +193,5 @@ class TestTimestreamTable(BaseTest):
         )
         with mock_datetime_now(parser.parse("2024-05-14T22:00:00+00:00"), c7n.filters.backup):
             resources = p.run()
+        self.assertEqual(resources[0]['c7n:AwsBackups'][0]['Status'], "COMPLETED")
         self.assertEqual(len(resources), 1)
