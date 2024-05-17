@@ -195,3 +195,22 @@ class TestTimestreamTable(BaseTest):
             resources = p.run()
         self.assertEqual(resources[0]['c7n:AwsBackups'][0]['Status'], "COMPLETED")
         self.assertEqual(len(resources), 1)
+
+    def test_timestream_kms_key_filter(self):
+        session_factory = self.replay_flight_data('test_timestream_kms_key_filter')
+        p = self.load_policy(
+            {
+                'name': 'timestream_kms_key_filter',
+                'resource': 'timestream-database',
+                'filters': [
+                    {
+                        'type': 'kms-key',
+                        'key': 'c7n:AliasName',
+                        'value': 'alias/test/timestream',
+                    },
+                ],
+            }, session_factory=session_factory
+        )
+        resources = p.run()
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(len(resources[0]['c7n:matched-kms-key']), 1)
